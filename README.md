@@ -50,6 +50,22 @@ Note: these operations can only be called by contract owner.
 erdpy --verbose contract call <contract_address> --recall-nonce --pem="<path_to_wallet_pem>" --chain="1" --gas-limit="60000000" --function="setOrderPrice" --arguments <base_price> <byte_price> --send
 ```
 
+### Set size limit
+
+Size limit indicates the size upper limit of storage order, owner sets this parameter at deployment time. It can also be modified by **setSizeLimit**.
+
+```
+erdpy --verbose contract call <contract_address> --recall-nonce --pem="<path_to_wallet_pem>" --chain="1" --gas-limit="60000000" --function="setSizeLimit" --arguments <size_limit> --send
+```
+
+### Set service price rate
+
+Service Price Rate indicates the service fee rate based on related order price. For example, if it is set to 50, and the order price is 0.005 CRU, then the real price user should pay is 0.005\*(100+50)/100 CRU. Owner sets this parameter at deployment time. It can also be modified by **setServicePriceRate**.
+
+```
+erdpy --verbose contract call <contract_address> --recall-nonce --pem="<path_to_wallet_pem>" --chain="1" --gas-limit="60000000" --function="setServicePriceRate" --arguments <service_price_rate> --send
+```
+
 ### Add supported token
 
 ```
@@ -75,4 +91,3 @@ After obtaining the price which is 10240000, then use command below to place ord
 erdpy --verbose contract call <contract_address> --recall-nonce --pem="<path_to_wallet_pem>" --chain="1" --gas-limit="60000000" --function="placeOrder" --arguments str:QmRRAA8bSvQAm8ovK5YUudT1pjiFe2YB6gFKSSyU6GT54B 262158 --value 10240000 --send
 ```
 Note: for pay with other ESDT tokens, please refer to [elrond doc](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs-cookbook/#transfer--execute)
->>>>>>> dev
