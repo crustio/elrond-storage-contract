@@ -32,8 +32,8 @@ use pair::ProxyTrait as _;
 
 #[derive(TopEncode)]
 pub struct PlaceOrderEvent<M: ManagedTypeApi> {
-    caller: ManagedAddress<M>,
-    node: ManagedAddress<M>,
+    customer: ManagedAddress<M>,
+    merchant: ManagedAddress<M>,
     cid: ManagedBuffer<M>,
     token: TokenIdentifier<M>,
     price: BigUint<M>,
@@ -177,9 +177,9 @@ pub trait StorageOrder {
             && !self.byte_price().is_empty(),
             "Order price has not been set"
         );
-        let mut price_in_cru = self.base_price().get() 
-            + self.byte_price().get().mul(size);
-        let percent = BigUint::zero() + 100u64;
+        let mut price_in_cru = self.base_price().get()
+            + self.byte_price().get().mul(size).div(BigUint::zero() + 1024u32 * 1024u32);
+        let percent = BigUint::zero() + 100u32;
         price_in_cru = price_in_cru.mul(self.service_price_rate().get() + &percent).div(percent);
 
         let cru_token_id = self.cru_token_id().get();
@@ -344,8 +344,8 @@ pub trait StorageOrder {
             caller,
             epoch,
             &PlaceOrderEvent {
-                caller: caller.clone(),
-                node: node.clone(),
+                customer: caller.clone(),
+                merchant: node.clone(),
                 cid: cid.clone(),
                 token: token.clone(),
                 price: price.clone(),
