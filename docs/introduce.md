@@ -72,7 +72,7 @@ Note: Given price cannot exceed the size upper limit, use ***getSizeLimit*** to 
 
 The last item of output is the price for given size, for this example it is 11137598509573. If there is no output, please make sure the given token is supported by storage contract. Use "getSupportedTokens" function to get supported tokens.
 
-After that, **placeOrder** function be used to place order with file cid and size as parameters.
+After that, **placeOrder** function can be called to place order with file cid and size as parameters.
 ```
 // erdpy tool
 erdpy contract call <storage_contract_address> --recall-nonce --pem="<path_to_wallet_pem>" --chain="1" --gas-limit="100000000" --function="placeOrder" --arguments str:QmRRAA8bSvQAm8ovK5YUudT1pjiFe2YB6gFKSSyU6GT54B 536870912 --send --value 11137598509573
